@@ -1,14 +1,15 @@
 import BaseSchema from "@ioc:Adonis/Lucid/Schema";
 
 export default class extends BaseSchema {
-  protected tableName = "posts";
+  protected tableName = "users";
 
   public async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.increments("id");
-      table.string("title");
-      table.text("content", "longtext");
-      table.text("author");
+      table.string("name");
+      table.string("email").unique().notNullable();
+      table.string("password");
+      table.boolean("is_admin").defaultTo(false);
 
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
